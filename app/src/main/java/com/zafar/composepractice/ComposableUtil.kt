@@ -1,12 +1,14 @@
 package com.zafar.composepractice
 
+import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Button
 import androidx.compose.material.Card
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
@@ -78,8 +80,7 @@ fun ImageCard(painter: Painter, contentDescription: String, title: String, modif
                 .fillMaxSize()
                 .background(
                     Brush.verticalGradient(
-                        colors = listOf(Color.Transparent, Color.Black),
-                        startY = 300f
+                        colors = listOf(Color.Transparent, Color.Black), startY = 300f
                     )
                 ))
             Box( // this box is for text
@@ -147,5 +148,24 @@ fun TextStyles() {
             textDecoration = TextDecoration.Underline
         )
     }
+}
 
+@Composable
+fun SimpleAnimation() {
+
+    var sizeState by remember {
+        mutableStateOf(200.dp)
+    }
+
+    val size by animateDpAsState(targetValue = sizeState)
+
+    Box(
+        modifier = Modifier
+            .size(size)
+            .background(Color.Black), contentAlignment = Alignment.Center
+    ) {
+        Button(onClick = { sizeState += 30.dp }) {
+            Text("Increase size")
+        }
+    }
 }
