@@ -56,10 +56,11 @@ class ComposePracticeActivity : ComponentActivity() {
 }
 
 @Composable
-fun DropDown(    text: String,
-                 modifier: Modifier = Modifier,
-                 initiallyOpened: Boolean = false,
-                 content: @Composable () -> Unit
+fun DropDown(
+    text: String,
+    modifier: Modifier = Modifier,
+    initiallyOpened: Boolean = false,
+    content: @Composable () -> Unit
 ) {
     var isOpen by remember {
         mutableStateOf(initiallyOpened)
@@ -76,16 +77,24 @@ fun DropDown(    text: String,
             durationMillis = 300
         )
     )
-
-    Column(modifier = modifier.fillMaxWidth()) {
+    Column(
+        modifier = modifier
+            .fillMaxWidth()
+    ) {
         Row(
-        horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.fillMaxWidth()) {
-            Text(text = text, color = Color.White, fontSize = 16.sp)
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier
+                .fillMaxWidth()
+        ) {
+            Text(
+                text = text,
+                color = Color.White,
+                fontSize = 16.sp
+            )
             Icon(
                 imageVector = Icons.Default.ArrowDropDown,
-                contentDescription = "Open or Close Dropdown",
+                contentDescription = "Open or close the drop down",
                 tint = Color.White,
                 modifier = Modifier
                     .clickable {
@@ -94,19 +103,18 @@ fun DropDown(    text: String,
                     .scale(1f, if (isOpen) -1f else 1f)
             )
         }
-    }
-    Spacer(modifier = Modifier.height(10.dp))
-    Box(
-        contentAlignment = Alignment.Center,
-        modifier = Modifier
-            .fillMaxWidth()
-            .graphicsLayer {
-                transformOrigin = TransformOrigin(0.5f, 0f)
-                rotationX = rotateX.value
-            }
-            .alpha(alpha.value)
-    )
-    {
-        content()
+        Spacer(modifier = Modifier.height(10.dp))
+        Box(
+            contentAlignment = Alignment.Center,
+            modifier = Modifier
+                .fillMaxWidth()
+                .graphicsLayer {
+                    transformOrigin = TransformOrigin(0.5f, 0f)
+                    rotationX = rotateX.value
+                }
+                .alpha(alpha.value)
+        ) {
+            content()
+        }
     }
 }
