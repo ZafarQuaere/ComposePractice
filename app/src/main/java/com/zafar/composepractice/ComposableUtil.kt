@@ -157,6 +157,7 @@ fun SimpleAnimation() {
         mutableStateOf(200.dp)
     }
 
+
     val size by animateDpAsState(targetValue = sizeState)
 
     Box(
